@@ -1,0 +1,12 @@
+provider "dnsimple" {
+  token   = "foo"
+  account = "nope"
+}
+
+resource "dnsimple_record" "dns_fail" {
+  domain = "example.com"
+  name   = "hashitraining0.example.com"
+  value  = "${element(aws_instance.web.*.public_ip, 0)}"
+  type   = "A"
+  ttl    = 3600
+}
